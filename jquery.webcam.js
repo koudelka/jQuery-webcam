@@ -19,22 +19,17 @@
     width: 320,
     height: 240,
 
-    mode: "callback", // callback | save | stream
-
     swffile: "jscam.swf",
     quality: 85,
 
     debug:	    function () {},
     onCapture:  function () {},
-    onTick:	    function () {},
-    onSave:	    function () {},
     onLoad:	    function () {}
   };
 
   window.webcam = webcam;
 
   $.fn.webcam = function(options) {
-
     if (typeof options === "object") {
       for (var ndx in webcam) {
         if (options[ndx] !== undefined) {
@@ -63,16 +58,13 @@
             return cam.capture(x);
           } catch(e) {}
         }
-        webcam.save = function(x) {
-          try {
-            return cam.save(x);
-          } catch(e) {}
-        }
+
         webcam.setCamera = function(x) {
           try {
             return cam.setCamera(x);
           } catch(e) {}
         }
+
         webcam.getCameraList = function() {
           try {
             return cam.getCameraList();
@@ -80,7 +72,7 @@
         }
 
         webcam.onLoad();
-      } else if (0 == run) {
+      } else if (run == 0) {
         webcam.debug("error", "Flash movie not yet registered!");
       } else {
         /* Flash interface not ready yet */
